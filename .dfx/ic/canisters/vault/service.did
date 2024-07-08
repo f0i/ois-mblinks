@@ -1,0 +1,20 @@
+type Balance = nat;
+type Balance__1 = nat;
+type Timestamp = nat64;
+type TransferError = variant {
+  GenericError : record { message : text; error_code : nat };
+  TemporarilyUnavailable;
+  BadBurn : record { min_burn_amount : Balance };
+  Duplicate : record { duplicate_of : TxIndex };
+  BadFee : record { expected_fee : Balance };
+  CreatedInFuture : record { ledger_time : Timestamp };
+  TooOld;
+  InsufficientFunds : record { balance : Balance };
+};
+type TransferResult = variant { Ok : TxIndex; Err : TransferError };
+type TxIndex = nat;
+type Vault = service {
+  balance_of : () -> (Balance__1);
+  claim : () -> (TransferResult);
+};
+service : Vault

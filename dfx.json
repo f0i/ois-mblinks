@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "canisters": {
+    "token": {
+      "type": "motoko",
+      "gzip": true,
+      "main": "src/token/Token.mo",
+      "args": "--incremental-gc --release"
+    },
+    "vault": {
+      "type": "motoko",
+      "gzip": true,
+      "main": "src/vault/Vault.mo",
+      "args": "--incremental-gc --release"
+    },
+    "blink": {
+      "dependencies": ["token", "vault"],
+      "source": ["src/blink_client/dist"],
+      "type": "assets",
+      "workspace": "blink_client"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "npx ic-mops sources",
+      "args": ""
+    },
+    "replica": {
+      "subnet_type": "system"
+    }
+  }
+}
