@@ -20,7 +20,7 @@ const ClaimCard = ({
   return (
 
 
-    <Card className="border-green-500 shadow-md bg-black m-5">     {/* --------------------  Start the card --------------------  */}
+    <Card className="border-green-500 shadow-md bg-black m-5 card">     {/* --------------------  Start the card --------------------  */}
 
       <CardContent className="m-3 pt-2">
         {/* <h1>Balance: {balance}</h1>
@@ -29,17 +29,17 @@ const ClaimCard = ({
         </Button> */}
         <div className="rounded-md border p-5 border-green-500 bg-black">
           <div className="container mx-auto">
-            <img src={monkey} alt="IC-Monkey-OIS" width={400} className="mx-auto" />
+            <img src={monkey} alt="IC-Monkey-OIS" width={400} className="mx-auto" />      {/* --------------------  NFT Image --------------------  */}
           </div>
-          <div>
-            <div className="mt-3 grid grid-rows-1 grid-flow-col te gap-3 text-sm">
-              <div className="col-start-2 rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500">
+          <div className="text-center">
+            <div className="mt-3 grid grid-rows-1 grid-flow-col gap-3 text-sm">
+              <div className="col-start-2 rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
                 <button className="font-medium">On-chain</button>
               </div>
-              <div className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500">
+              <div className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
                 <button className="font-medium">Monkey</button>
               </div>
-              <div className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500">
+              <div className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
                 <button className="font-medium">ICP</button>
               </div>
             </div>
@@ -93,14 +93,14 @@ const ClaimCard = ({
 
         {/* ----------------------- Claim buttons ----------------------- */}
 
-        <div className="grid grid-cols-3 pt-5">
-          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500">
+        <div className="grid grid-cols-3 pt-5 text-center">
+          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
             <button className="text-white font-medium">1 ICP</button>
           </div>
-          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500">
+          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
             <button className="text-white font-medium">5 ICP</button>
           </div>
-          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500">
+          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
             <button className="text-white font-medium">10 ICP</button>
           </div>
 
