@@ -110,7 +110,7 @@ const SwapCard = ({
           for the identification of the wallet.
           The following code can show itself if the identity is null. */}
 
-          <ConnectWalletButton handleConnect />
+          <ConnectWalletButton handleConnect={handleConnect} />
 
           {/* End of the piece of code. */}
 
