@@ -6,5 +6,3 @@ npm run build
 cd $ORIGINAL_DIR
 
 dfx deploy blink 
-
-l4rdh-iyaaa-aaaal-qdvxa-cai

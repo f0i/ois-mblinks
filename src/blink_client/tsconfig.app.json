@@ -25,5 +25,5 @@
     "baseUrl": ".",
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src", "declarations.d.ts"]
+  "include": ["src", "declarations.d.ts", "@lib/services"]
 }

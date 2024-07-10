@@ -1,4 +1,4 @@
-export const idlFactory = ({ IDL }) => {
+export const idlFactory = ({ IDL }: any) => {
     const Balance__1 = IDL.Nat;
     const TxIndex = IDL.Nat;
     const Balance = IDL.Nat;
@@ -23,6 +23,6 @@ export const idlFactory = ({ IDL }) => {
     });
     return Vault;
 };
-export const init = ({ IDL }) => {
+export const init = ({ IDL }: any) => {
     return [IDL.Record({ 'tokenId': IDL.Text })];
 };

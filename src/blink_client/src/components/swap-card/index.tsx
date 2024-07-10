@@ -1,11 +1,9 @@
 import { Identity } from "@dfinity/agent";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import  ConnectWalletButton from "../ui/buttons/ConnectWalletButton.js";
+import ConnectWalletButton from "../ui/buttons/ConnectWalletButton";
 
 import monkey from "../../assets/Monkey-OIS.png";
-
-import { Action } from "@/types/Action.type";
 
 const SwapCard = ({
   identity,
@@ -104,16 +102,15 @@ const SwapCard = ({
           </div>
         </div>
 
-          {/* ----------------------- Connect button if identity is NULL ----------------------- */}
+        {/* ----------------------- Connect button if identity is NULL ----------------------- */}
 
-          {/* Insert the logic of the if/else statement here
+        {/* Insert the logic of the if/else statement here
           for the identification of the wallet.
           The following code can show itself if the identity is null. */}
 
-          <ConnectWalletButton handleConnect={handleConnect} />
+        <ConnectWalletButton handleConnect={handleConnect} />
 
-          {/* End of the piece of code. */}
-
+        {/* End of the piece of code. */}
       </CardContent>
     </Card>
   );

@@ -2,7 +2,7 @@
   "name": "services",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "tsc"
   },
@@ -17,6 +17,7 @@
     "@dfinity/agent": "^1.4.0",
     "@dfinity/candid": "^1.4.0",
     "@dfinity/ledger-icp": "^2.3.1",
-    "@dfinity/principal": "^1.4.0"
+    "@dfinity/principal": "^1.4.0",
+    "vite-plugin-node-polyfills": "^0.22.0"
   }
 }

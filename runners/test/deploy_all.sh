@@ -1,8 +1,12 @@
 
 CLIENT_DIR="src/blink_client"
 ORIGINAL_DIR=$(pwd)
-
+dfx deploy token 
 TOKEN_CANISTER=$(dfx canister id token)
+
+dfx deploy vault --argument "(record { 
+    tokenId = \"$TOKEN_CANISTER\"; 
+})"
 VAULT_CANISTER=$(dfx canister id vault)
 
 cd $CLIENT_DIR
@@ -14,4 +18,4 @@ echo "VITE_VAULT_CANISTER_ID=$VAULT_CANISTER" >> .env
 npm run build
 cd $ORIGINAL_DIR
 
-dfx deploy blink 
+dfx deploy blink z
