@@ -1,6 +1,7 @@
 import { Identity } from "@dfinity/agent";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
+import ConnectWalletButton from "../ui/buttons/ConnectWalletButton.jsx";
 
 const ClaimCard = ({
   identity,
@@ -25,12 +26,7 @@ const ClaimCard = ({
             Claim 1 Pedro
           </Button>
         ) : (
-          <Button
-            className="w-full mt-4 bg-gradient-to-r from-lime-300 to-green-500"
-            onClick={handleConnect}
-          >
-            Connect wallet
-          </Button>
+          <ConnectWalletButton />
         )}
       </CardContent>
     </Card>

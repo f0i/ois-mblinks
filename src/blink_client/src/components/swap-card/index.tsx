@@ -1,9 +1,10 @@
 import { Identity } from "@dfinity/agent";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
+import  ConnectWalletButton from "../ui/buttons/ConnectWalletButton.jsx";
+
 
 import monkey from "../../assets/Monkey-OIS.png";
-import stoicWalletLogo from "../../assets/stoic-wallet-logo.png";
 
 import { Action } from "@/types/Action.type";
 
@@ -110,14 +111,7 @@ const SwapCard = ({
           for the identification of the wallet.
           The following code can show itself if the identity is null. */}
 
-          <div className="rounded-full text-center p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-            <button className="text-stone-900 font-medium">
-            <span className="inline-flex items-center">
-              <img className="pr-2" src={stoicWalletLogo} width={75} alt="Stoic Wallet"/>
-              <p className="pl-2">Connect Wallet</p>
-              </span>
-            </button>
-          </div>
+          <ConnectWalletButton />
 
           {/* End of the piece of code. */}
 
