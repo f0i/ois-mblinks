@@ -18,9 +18,11 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "ic-stoic-identity": "^2.0.0",
+    "install": "^0.13.0",
     "lucide-react": "^0.400.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "@lib/services": "file:../services",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
