@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import  ConnectWalletButton from "../ui/buttons/ConnectWalletButton.jsx";
 
-
 import monkey from "../../assets/Monkey-OIS.png";
 
 import { Action } from "@/types/Action.type";
@@ -111,7 +110,7 @@ const SwapCard = ({
           for the identification of the wallet.
           The following code can show itself if the identity is null. */}
 
-          <ConnectWalletButton />
+          <ConnectWalletButton handleConnect />
 
           {/* End of the piece of code. */}
 
