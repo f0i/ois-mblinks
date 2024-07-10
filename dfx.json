@@ -17,7 +17,9 @@
       "dependencies": ["token", "vault"],
       "source": ["src/blink_client/dist"],
       "type": "assets",
-      "workspace": "blink_client"
+      "workspace": "blink_client",
+      "build": "cd src/blink_client && npm run build"
+
     }
   },
   "defaults": {

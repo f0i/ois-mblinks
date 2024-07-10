@@ -1,7 +1,7 @@
 import { Identity } from "@dfinity/agent";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import  ConnectWalletButton from "../ui/buttons/ConnectWalletButton.jsx";
+import  ConnectWalletButton from "../ui/buttons/ConnectWalletButton.js";
 
 import monkey from "../../assets/Monkey-OIS.png";
 
