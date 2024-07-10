@@ -49,41 +49,6 @@ export const withdrawFromPool = async ({
       : unusedBalanceBefore.balance1.toString();
   } else amountStr = withdraw_amount.toString();
 
-  // deposit to pool
-  if (zeroForOne && token0Standard !== "ICRC1") {
-    console.log("approve token 0", token0Standard);
-    await tokenService.approve({
-      memo: [],
-      from_subaccount: [],
-      created_at_time: [],
-      expected_allowance: [],
-      expires_at: [],
-      amount: BigInt(amountStr) + BigInt(token0Fee),
-      fee: [BigInt(token0Fee)],
-      spender: {
-        owner: Principal.fromText(pool),
-        subaccount: [],
-      },
-      canisterId: token0,
-    });
-  } else if (!zeroForOne && token1Standard !== "ICRC1") {
-    console.log("approve token 1", token1Standard);
-    await tokenService.approve({
-      memo: [],
-      from_subaccount: [],
-      created_at_time: [],
-      expected_allowance: [],
-      expires_at: [],
-      amount: BigInt(amountStr) + BigInt(token1Fee),
-      fee: [BigInt(token1Fee)],
-      spender: {
-        owner: Principal.fromText(pool),
-        subaccount: [],
-      },
-      canisterId: token1,
-    });
-  }
-
   const withdrawResult = await icsPoolSwapService.withdraw({
     fee: zeroForOne ? BigInt(token0Fee) : BigInt(token1Fee),
     amount: zeroForOne ? BigInt(amountStr) : BigInt(amountStr),

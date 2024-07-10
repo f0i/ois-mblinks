@@ -38,7 +38,6 @@ export const depositToPool = async ({
 
   // approve if not ICRC 1 to pool
   if (zeroForOne && token0Standard !== "ICRC1") {
-    console.log("approve token 0", token0Standard);
     await tokenService.approve({
       memo: [],
       from_subaccount: [],
@@ -54,7 +53,6 @@ export const depositToPool = async ({
       canisterId: token0,
     });
   } else if (!zeroForOne && token1Standard !== "ICRC1") {
-    console.log("approve token 1", token1Standard);
     await tokenService.approve({
       memo: [],
       from_subaccount: [],

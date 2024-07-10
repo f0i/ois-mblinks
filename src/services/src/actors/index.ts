@@ -22,7 +22,7 @@ export class Actors {
       this.agent = agent;
     } else {
       this.agent = new HttpAgent({
-        fetch,
+        fetch: window.fetch.bind(window),
         host: DEFAULT_HOST,
         retryTimes: 10,
       });

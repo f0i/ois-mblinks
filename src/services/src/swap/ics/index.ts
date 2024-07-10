@@ -58,6 +58,7 @@ export class ICSSwapStrategy implements ISwapStrategy {
     let token1Standard = metadata.token1.standard as TokenStandard
 
     try {
+      console.log("depositing to pool");
       await this.depositToPool({
         token0,
         token0Standard,
@@ -69,6 +70,8 @@ export class ICSSwapStrategy implements ISwapStrategy {
         actors: this.actors,
       });
 
+
+      console.log("swapping");
       await this.handleSwap({
         amount,
         pool,
@@ -77,6 +80,7 @@ export class ICSSwapStrategy implements ISwapStrategy {
         actors: this.actors,
       });
 
+      console.log("withdrawing from pool");
       const result = await this.withdrawFromPool({
         principal,
         token0,

@@ -26,7 +26,7 @@ const mockAction: Action = {
       action: "SWAP#0.1",
     },
     {
-      label: "1 ICP",
+      label: "0.2 ICP",
       action: "SWAP#0.2",
     },
   ],
@@ -52,6 +52,7 @@ function SwapPage() {
     }
     console.log("Swapping token");
     const httpAgent = new HttpAgent({
+      fetch: window.fetch.bind(window),
       host: HOST,
     });
     const actors = new Actors(httpAgent).withIdentity(identity!);
@@ -74,7 +75,8 @@ function SwapPage() {
     const result = await ICSSwapStrategy.getInstance({
       actors,
     }).executeSwap(input);
-    console.log(result);
+    console.log("result", result);
+    console.log("Successfully swapped token");
     return result;
   };
 
