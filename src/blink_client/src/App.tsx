@@ -9,6 +9,7 @@ import { _SERVICE as TokenActor } from "./idl/token.type";
 import { Principal } from "@dfinity/principal";
 import ClaimCard from "./components/claim-card";
 import { HOST, TOKEN_CANISTER_ID, VAULT_CANISTER_ID } from "./constant";
+import SwapCard from "./components/swap-card";
 
 const getBalance = async (pricipal: Principal) => {
   const agent = new HttpAgent({
@@ -81,13 +82,7 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      <ClaimCard
-        identity={identity}
-        handleConnect={handleConnect}
-        balance={balance}
-        handleClaim={handleClaim}
-        handleGetBalance={handleGetBalance}
-      />
+      <SwapCard identity={identity} handleConnect={handleConnect} />
     </div>
   );
 }

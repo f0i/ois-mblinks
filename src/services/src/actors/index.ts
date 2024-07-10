@@ -7,6 +7,9 @@ import { createActor as createDIP20Actor } from "./dip20";
 import { createActor as createExtActor } from "./ext";
 import { createActor as createInfoActor } from "./ics-info";
 import { createActor as createIcsLPActor } from "./ics-lp";
+import {
+  createActor as createAirdropVaultActor,
+} from "./airdropVault"
 import { DEFAULT_HOST } from "../constant";
 
 
@@ -89,6 +92,13 @@ export class Actors {
 
   public createIcsLPActor({ canisterId }: { canisterId: string }) {
     return createIcsLPActor({
+      agent: this.agent,
+      canisterId,
+    });
+  }
+
+  public createAirdropVaultActor({ canisterId }: { canisterId: string }) {
+    return createAirdropVaultActor({
       agent: this.agent,
       canisterId,
     });
