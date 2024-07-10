@@ -4,10 +4,11 @@ import { Actors } from "../../actors";
 import { IcsPoolSwapService } from "../../ics-swap";
 import { PoolMetadata } from "../../ics-swap/interface";
 import { TokenStandard } from "../../token/tokenAdapter";
-import { HandleDeposit } from "./deposit";
+import { HandleDeposit, depositToPool } from "./deposit";
 import { HandleSwap, swap } from "./swap"
 import {
-  HandleWithdraw
+  HandleWithdraw,
+  withdrawFromPool
 } from "./withdraw";
 
 
@@ -17,19 +18,23 @@ export class ICSSwapStrategy implements ISwapStrategy {
   private handleSwap: HandleSwap;
   private depositToPool: HandleDeposit;
   private withdrawFromPool: HandleWithdraw;
+  private actors: Actors;
 
   constructor({
     handleSwap,
     depositToPool,
     withdrawFromPool,
+    actors
   }: {
     handleSwap: HandleSwap;
     depositToPool: HandleDeposit;
     withdrawFromPool: HandleWithdraw;
+    actors: Actors;
   }) {
     this.handleSwap = handleSwap;
     this.depositToPool = depositToPool;
     this.withdrawFromPool = withdrawFromPool;
+    this.actors = actors;
   }
 
   public async executeSwap({
@@ -38,16 +43,14 @@ export class ICSSwapStrategy implements ISwapStrategy {
     pool,
     zeroForOne,
     slipage,
-    actors,
   }: {
     principal: Principal;
     amount: number;
     pool: string;
     zeroForOne: boolean;
     slipage: number;
-    actors: Actors;
   }): Promise<bigint> {
-    let icsPoolSwapService = IcsPoolSwapService.getInstance(pool, actors);
+    let icsPoolSwapService = IcsPoolSwapService.getInstance(pool, this.actors);
     const metadata: PoolMetadata = await icsPoolSwapService.getMetadata();
     let token0 = metadata.token0.address
     let token0Standard = metadata.token0.standard as TokenStandard
@@ -63,7 +66,7 @@ export class ICSSwapStrategy implements ISwapStrategy {
         pool,
         zeroForOne,
         amount,
-        actors,
+        actors: this.actors,
       });
 
       await this.handleSwap({
@@ -71,7 +74,7 @@ export class ICSSwapStrategy implements ISwapStrategy {
         pool,
         zeroForOne,
         slipage,
-        actors,
+        actors: this.actors,
       });
 
       const result = await this.withdrawFromPool({
@@ -83,7 +86,7 @@ export class ICSSwapStrategy implements ISwapStrategy {
         pool,
         zeroForOne,
         withdraw_amount: 0,
-        actors,
+        actors: this.actors,
       });
 
       return result;
@@ -95,19 +98,16 @@ export class ICSSwapStrategy implements ISwapStrategy {
   }
 
   public static getInstance({
-    handleSwap,
-    depositToPool,
-    withdrawFromPool,
+    actors
   }: {
-    handleSwap: HandleSwap;
-    depositToPool: HandleDeposit;
-    withdrawFromPool: HandleWithdraw;
+    actors: Actors;
   }) {
     if (!instance) {
       return new ICSSwapStrategy({
         handleSwap: swap,
         depositToPool: depositToPool,
         withdrawFromPool: withdrawFromPool,
+        actors
       });
     }
     return instance;

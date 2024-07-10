@@ -1,18 +1,23 @@
 import { Identity } from "@dfinity/agent";
-import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import ConnectWalletButton from "../ui/buttons/ConnectWalletButton";
 
 import monkey from "../../assets/Monkey-OIS.png";
+import { Action } from "@/types/Action.type";
 
 const SwapCard = ({
   identity,
+  action,
   handleConnect,
+  handleSwap,
 }: {
   identity: Identity | null;
+  action: Action;
   handleConnect: () => void;
+  handleSwap: (amount: number) => Promise<bigint | undefined>;
 }) => {
   // TODO: get data from action
+
   return (
     <Card className="border-green-500 shadow-md bg-black m-5 card">
       {/* --------------------  Start the card --------------------  */}
@@ -29,22 +34,21 @@ const SwapCard = ({
           </div>
           <div className="text-center">
             <div className="mt-3 grid grid-rows-1 grid-flow-col gap-3 text-sm">
-              <div className="col-start-2 rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-                <button className="font-medium">On-chain</button>
-              </div>
-              <div className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-                <button className="font-medium">Monkey</button>
-              </div>
-              <div className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-                <button className="font-medium">ICP</button>
-              </div>
+              {action.labels.map((label, index) => (
+                <div
+                  key={index}
+                  className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
+                >
+                  <button className="font-medium">{label}</button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
         {/* ----------------------- Card title ----------------------- */}
         <div>
           <h1 className="text-lime-500 text-start text-3xl pt-5 font-bold">
-            Monkey Magic OIS
+            {action.title}
           </h1>
         </div>
         {/* ----------------------- Prices ----------------------- */}
@@ -84,22 +88,27 @@ const SwapCard = ({
           </div>
         </div>
         <div className="auto-cols-max pt-2">
-          <p className="text-white text-start">
-            Marketplace for the world of digital art. Discover the works of
-            famous designers and own their work.
-          </p>
+          <p className="text-white text-start">{action.description}</p>
         </div>
         {/* ----------------------- Claim buttons ----------------------- */}
         <div className="grid grid-cols-3 pt-5 text-center">
-          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-            <button className="text-white font-medium">1 ICP</button>
-          </div>
-          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-            <button className="text-white font-medium">5 ICP</button>
-          </div>
-          <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
-            <button className="text-white font-medium">10 ICP</button>
-          </div>
+          {action.actions.map((item, index) => {
+            const [, amount] = item.action.split("#");
+
+            return (
+              <div
+                key={index}
+                className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
+              >
+                <button
+                  className="text-white font-medium"
+                  onClick={() => handleSwap(Number(amount))}
+                >
+                  {item.label}
+                </button>
+              </div>
+            );
+          })}
         </div>
 
         {/* ----------------------- Connect button if identity is NULL ----------------------- */}
@@ -107,8 +116,7 @@ const SwapCard = ({
         {/* Insert the logic of the if/else statement here
           for the identification of the wallet.
           The following code can show itself if the identity is null. */}
-
-        <ConnectWalletButton handleConnect={handleConnect} />
+        {!identity && <ConnectWalletButton handleConnect={handleConnect} />}
 
         {/* End of the piece of code. */}
       </CardContent>

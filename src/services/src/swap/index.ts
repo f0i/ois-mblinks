@@ -7,13 +7,11 @@ export interface ISwapStrategy {
     pool,
     zeroForOne, // for future non icp swaps
     slipage,
-    actors,
   }: {
     amount: number;
     pool: string;
     zeroForOne: boolean;
     slipage: number;
-    actors: Actors;
   }): Promise<bigint>;
 }
 
@@ -48,7 +46,6 @@ export class SwapContext {
       pool,
       zeroForOne,
       slipage,
-      actors: this.actors,
     });
   }
 }
