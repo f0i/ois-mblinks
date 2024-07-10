@@ -2,29 +2,22 @@ import { Identity } from "@dfinity/agent";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import monkey from "../../assets/Monkey-OIS.png";
+import { Action } from "@/types/Action.type";
 
 const SwapCard = ({
   identity,
-  balance,
-  handleGetBalance,
-  handleClaim,
   handleConnect,
+  action,
 }: {
   identity: Identity | null;
-  balance: number;
-  handleGetBalance: () => void;
-  handleClaim: () => void;
   handleConnect: () => void;
+  action: () => Action;
 }) => {
+  // TODO: get data from action
   return (
     <Card className="border-green-500 shadow-md bg-black m-5 card">
-      {" "}
       {/* --------------------  Start the card --------------------  */}
       <CardContent className="m-3 pt-2">
-        {/* <h1>Balance: {balance}</h1>
-        <Button className="w-full mr-1" onClick={handleGetBalance}>
-          Refresh Balance
-        </Button> */}
         <div className="rounded-md border p-5 border-green-500 bg-black">
           <div className="container mx-auto">
             <img
@@ -72,9 +65,7 @@ const SwapCard = ({
             <p className="text-white">$12.56 USD</p>
           </div>
         </div>
-
         {/* ----------------------- Description ----------------------- */}
-
         <div className="text-start text-xs pt-5">
           <div className="inline-flex items-center pr-5">
             <i className="fa-solid fa-star text-lime-500"></i>
@@ -99,9 +90,7 @@ const SwapCard = ({
             famous designers and own their work.
           </p>
         </div>
-
         {/* ----------------------- Claim buttons ----------------------- */}
-
         <div className="grid grid-cols-3 pt-5 text-center">
           <div className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150">
             <button className="text-white font-medium">1 ICP</button>
@@ -113,22 +102,7 @@ const SwapCard = ({
             <button className="text-white font-medium">10 ICP</button>
           </div>
         </div>
-
-        {/* {identity ? (
-          <Button
-            className="w-full mt-4 bg-gradient-to-r from-lime-300 to-green-500"
-            onClick={handleClaim}
-          >
-            Claim 1 Pedro
-          </Button>
-        ) : (
-          <Button
-            className="w-full mt-4 bg-gradient-to-r from-lime-300 to-green-500"
-            onClick={handleConnect}
-          >
-            Connect wallet
-          </Button>
-        )} */}
+        // TODO: connect if identity is null
       </CardContent>
     </Card>
   );
