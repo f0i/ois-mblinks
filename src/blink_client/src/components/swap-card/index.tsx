@@ -7,11 +7,9 @@ import { Action } from "@/types/Action.type";
 const SwapCard = ({
   identity,
   handleConnect,
-  action,
 }: {
   identity: Identity | null;
   handleConnect: () => void;
-  action: () => Action;
 }) => {
   // TODO: get data from action
   return (
