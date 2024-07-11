@@ -1,47 +1,54 @@
-import { Identity } from "@dfinity/agent";
+import { HttpAgent, Identity } from "@dfinity/agent";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-
+import ConnectWalletButton from "../ui/buttons/ConnectWalletButton";
 import gif from "../../assets/main.gif";
+import { Actors, ClaimAirdropService } from "@lib/services";
+import { HOST, VAULT_CANISTER_ID } from "@/constant";
 
 const ClaimCard = ({
   identity,
-  balance,
-  handleGetBalance,
-  handleClaim,
   handleConnect,
 }: {
   identity: Identity | null;
-  balance: number;
-  handleGetBalance: () => void;
-  handleClaim: () => void;
   handleConnect: () => void;
 }) => {
+  const handleClaim = async () => {
+    if (!identity) {
+      return;
+    }
+    console.log("Claiming airdrop");
+    const httpAgent = new HttpAgent({
+      host: HOST,
+    });
+    const actors = new Actors(httpAgent).withIdentity(identity!);
+    await ClaimAirdropService.getInstance({
+      canisterId: VAULT_CANISTER_ID,
+      actors,
+    }).claimAirdrop();
+
+    console.log("Airdrop claimed");
+  };
+
   return (
-    <Card className="border-yellow-200 shadow-md">
-      <CardContent className="mt-5">
-        {/* <h1>Balance: {balance}</h1>
-        <Button className="w-full mr-1" onClick={handleGetBalance}>
-          Refresh Balance
-        </Button> */}
-        <div className="w-80 mb-2">
-          <img src={gif} alt="IC-PEDRO-ICP-OIS" />
+    <Card className="border-green-500 shadow-md bg-black m-5 card">
+      {/* --------------------  Start the card --------------------  */}
+      <CardContent className="m-3 pt-2">
+        <img src={gif} alt="gif" className="mx-auto" />
+        <div>
+          <h1 className="text-lime-500 text-start text-3xl pt-5 font-bold">
+            Pedro's Airdrop
+          </h1>
         </div>
-        <div className="mb-1">PEDRO biggest airdrop contest</div>
         {identity ? (
           <Button
-            className="w-full mt-4 bg-yellow-300 hover:bg-yellow-400"
+            className="w-full mt-4 bg-gradient-to-r from-lime-300 to-green-500"
             onClick={handleClaim}
           >
-            Claim 1 Pedro
+            Claim
           </Button>
         ) : (
-          <Button
-            className="w-full mt-4 bg-yellow-300 hover:bg-yellow-400"
-            onClick={handleConnect}
-          >
-            Connect wallet
-          </Button>
+          <ConnectWalletButton handleConnect={handleConnect} />
         )}
       </CardContent>
     </Card>

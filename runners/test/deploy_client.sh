@@ -1,3 +1,4 @@
+
 CLIENT_DIR="src/blink_client"
 ORIGINAL_DIR=$(pwd)
 
