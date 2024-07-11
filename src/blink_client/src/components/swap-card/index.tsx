@@ -35,12 +35,12 @@ const SwapCard = ({
           <div className="text-center">
             <div className="mt-3 grid grid-rows-1 grid-flow-col gap-3 text-sm">
               {action.labels.map((label, index) => (
-                <div
+                <button
                   key={index}
-                  className="rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
+                  className="font-medium rounded-full p-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
                 >
-                  <button className="font-medium">{label}</button>
-                </div>
+                  {label}
+                </button>
               ))}
             </div>
           </div>
@@ -96,17 +96,13 @@ const SwapCard = ({
             const [, amount] = item.action.split("#");
 
             return (
-              <div
+              <button
                 key={index}
-                className="rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
+                className="text-white font-medium rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
+                onClick={() => handleSwap(Number(amount))}
               >
-                <button
-                  className="text-white font-medium"
-                  onClick={() => handleSwap(Number(amount))}
-                >
-                  {item.label}
-                </button>
-              </div>
+                {item.label}
+              </button>
             );
           })}
         </div>
