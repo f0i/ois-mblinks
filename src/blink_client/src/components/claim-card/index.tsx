@@ -5,17 +5,22 @@ import ConnectWalletButton from "../ui/buttons/ConnectWalletButton";
 import gif from "../../assets/main.gif";
 import { Actors, ClaimAirdropService } from "@lib/services";
 import { HOST, VAULT_CANISTER_ID } from "@/constant";
+import { useState } from "react";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 const ClaimCard = ({
   identity,
   handleConnect,
 }: {
   identity: Identity | null;
-  handleConnect: () => void;
+  handleConnect: () => Promise<void>;
 }) => {
+  const [error, setError] = useState<null | string>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleClaim = async () => {
     if (!identity) {
-      return;
+      throw "Wallet is not connected.";
     }
     console.log("Claiming airdrop");
     const httpAgent = new HttpAgent({
@@ -28,6 +33,30 @@ const ClaimCard = ({
     }).claimAirdrop();
 
     console.log("Airdrop claimed");
+    // TODO: add something like toast notification instead of alert
+    alert("Airdrop successfully claimed.");
+  };
+
+  const connectHandler = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      await handleConnect();
+    } catch (err) {
+      setError("Couldn't connect wallet: " + err);
+    }
+    setLoading(false);
+  };
+
+  const claimHandler = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      await handleClaim();
+    } catch (err) {
+      setError("Couldn't claim airdrop: " + err);
+    }
+    setLoading(false);
   };
 
   return (
@@ -40,15 +69,26 @@ const ClaimCard = ({
             Pedro's Airdrop
           </h1>
         </div>
+        <div className="flex">
+          <ErrorMessage
+            error={error}
+            setError={setError}
+            className="max-w-5xl"
+          />
+        </div>
         {identity ? (
           <Button
             className="w-full mt-4 bg-gradient-to-r from-lime-300 to-green-500"
-            onClick={handleClaim}
+            onClick={claimHandler}
+            disabled={loading}
           >
             Claim
           </Button>
         ) : (
-          <ConnectWalletButton handleConnect={handleConnect} />
+          <ConnectWalletButton
+            handleConnect={connectHandler}
+            disabled={loading}
+          />
         )}
       </CardContent>
     </Card>

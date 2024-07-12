@@ -4,6 +4,8 @@ import ConnectWalletButton from "../ui/buttons/ConnectWalletButton";
 
 import monkey from "../../assets/Monkey-OIS.png";
 import { Action } from "@/types/Action.type";
+import { useState } from "react";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 const SwapCard = ({
   identity,
@@ -13,10 +15,34 @@ const SwapCard = ({
 }: {
   identity: Identity | null;
   action: Action;
-  handleConnect: () => void;
+  handleConnect: () => Promise<void>;
   handleSwap: (amount: number) => Promise<bigint | undefined>;
 }) => {
   // TODO: get data from action
+  const [error, setError] = useState<null | string>("dummy error");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const connectHandler = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      await handleConnect();
+    } catch (err) {
+      setError("Couldn't connect wallet: " + err);
+    }
+    setLoading(false);
+  };
+
+  const swapHandler = async (amount: number) => {
+    try {
+      setError(null);
+      setLoading(true);
+      await handleSwap(amount);
+    } catch (err) {
+      setError("Swap failed: " + err);
+    }
+    setLoading(false);
+  };
 
   return (
     <Card className="border-green-500 shadow-md bg-black m-5 card">
@@ -98,13 +124,21 @@ const SwapCard = ({
             return (
               <button
                 key={index}
-                className="text-white font-medium rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150"
-                onClick={() => handleSwap(Number(amount))}
+                className="text-white font-medium rounded-full p-2 m-2 bg-gradient-to-r from-lime-300 to-green-500 transition ease-in delay-100 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-150 disabled:opacity-50 disabled:scale-100 disabled:-translate-y-0"
+                onClick={() => swapHandler(Number(amount))}
+                disabled={loading}
               >
                 {item.label}
               </button>
             );
           })}
+        </div>
+        <div className="text-center">
+          <ErrorMessage
+            error={error}
+            setError={setError}
+            className="max-w-lg"
+          />
         </div>
 
         {/* ----------------------- Connect button if identity is NULL ----------------------- */}
@@ -112,7 +146,12 @@ const SwapCard = ({
         {/* Insert the logic of the if/else statement here
           for the identification of the wallet.
           The following code can show itself if the identity is null. */}
-        {!identity && <ConnectWalletButton handleConnect={handleConnect} />}
+        {!identity && (
+          <ConnectWalletButton
+            handleConnect={connectHandler}
+            disabled={loading}
+          />
+        )}
 
         {/* End of the piece of code. */}
       </CardContent>

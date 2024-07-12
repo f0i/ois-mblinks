@@ -48,7 +48,7 @@ function SwapPage() {
 
   const handleSwap = async (amount: number) => {
     if (!identity) {
-      return;
+      throw "Wallet is not connected";
     }
     console.log("Swapping token");
     const httpAgent = new HttpAgent({
